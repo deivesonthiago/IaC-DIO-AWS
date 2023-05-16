@@ -1,0 +1,58 @@
+#!/bin/bash
+
+echo "Iniciando Criação de IaC"
+
+echo "Criando Diretórios..."
+
+mkdir /publico
+mkdir /adm
+mkdir /vendas
+mkdir /secretariado
+
+echo "Criando grupos..."
+
+groupadd GRP_ADM
+groupadd GRP_VENDAS
+groupadd GRP_SEC
+
+echo "Criando Usuários..."
+
+echo "Setor Administrativo..."
+
+useradd alex -m -c "Alex do Setor Administrativo" -s /bin/bash -G GRP_ADM -p $(openssl passwd -crypt 1234)
+passwd alex -e
+useradd bianca -m -c "Bianca do setor Administrativo" -s /bin/bash -G GRP_ADM -p $(openssl passwd -crypt 1234)
+passwd bianca -e
+useradd caio -m -c "Caio do setor Administrativo" -s /bin/bash -G GRP_ADM -p $(openssl passwd -crypt 1234)
+passwd caio -e
+
+echo "Setor de Vendas..."
+
+useradd debora -m -c "Débora do setor de Vendas" -s /bin/bash -G GRP_VENDAS -p $(openssl passwd -crypt 1234)
+passwd debora -e
+useradd estela -m -c "Estela do setor de Vendas" -s /bin/bash -G GRP_VENDAS -p $(openssl passwd -crypt 1234)
+passwd estela -e
+useradd flavio -m -c "Flavio do setor de Vendas" -s /bin/bash -G GRP_VENDAS -p $(openssl passwd -crypt 1234)
+passwd flavio -e
+
+echo "Setor de Secretariado..."
+
+useradd gabriela -m -c "Gabriela do sertor de Secretariado" -s /bin/bash -G GRP_SEC -p $(openssl passwd -crypt 1234)
+passwd gabriela -e
+useradd helena -m -c "Helena do sertor de Secretariado" -s /bin/bash -G GRP_SEC -p $(openssl passwd -crypt 1234)
+passwd helena -e
+useradd igor -m -c "Igor do sertor de Secretariado" -s /bin/bash -G GRP_SEC -p $(openssl passwd -crypt 1234)
+passwd igor -e
+
+echo "Atribuindo Permissões..."
+
+chown root:GRP_ADM /adm
+chown root:GRP_VENDAS /vendas
+chown root:GRP_SEC /secretariado
+
+chmod 777 /publico
+chmod 770 /adm
+chmod 770 /vendas
+chmod 770 /secretariado
+
+echo "IaC Concluída"
